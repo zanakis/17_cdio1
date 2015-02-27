@@ -24,24 +24,27 @@ public class Function implements IFunction {
 
 	}
 
-	public void makeNewPassword(int oprId, String psw1, String psw2) throws DALException {
+	public String makeNewPassword(int oprId, String psw1, String psw2) throws DALException {
 		IPasswordGen passGen = new PasswordGen();
 		if(passGen.checkCriteria(psw1)) {
-			if(psw1.equals(psw2))
+			if(psw1.equals(psw2)) {
 				data.getOperator(oprId).setPassword(psw1);
+				return "Password changed";
+			}
 		}
+		return "Passwords didn't match";
 	}
 
 	public void getOprList() throws DALException {
 		for(int i = 0; i < data.getOperatorList().size(); i++) {
-			if(data.getOperatorList().get(i) != null)
+			if((data.getOperatorList().get(i) != null) && !data.getOperator(i).getAdmin())
 				System.out.println(data.getOperatorList().get(i).getOprName() + "\t" + data.getOperatorList().get(i).getIni() + "\t" +
 						data.getOperatorList().get(i).getOprId() + "\t" + data.getOperatorList().get(i).getCpr());
 		}
 	}
 
 	public boolean login(int oprId, String psw) throws DALException {
-		return psw.equals(data.getOperator(oprId).getPassword());
+		return psw.equals(data.getOperator(oprId).getPassword()) && (oprId > 10);
 	}
 
 }
