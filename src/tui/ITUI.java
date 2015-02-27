@@ -1,5 +1,7 @@
 package tui;
 
-public interface ITUI {
+import data.IOperatorDAO.DALException;
 
+public interface ITUI {
+	void dialog() throws DALException;
 }

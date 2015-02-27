@@ -4,15 +4,19 @@ import data.*;
 import data.IOperatorDAO.DALException;
 
 public class Function implements IFunction {
-	private IOperatorDAO data = new OperatorDAO();
+	private IOperatorDAO data;
+	
+	public Function() {
+		data = new OperatorDAO();
+	}
 
 	public void createOperator(String oprName, String ini, String cpr) throws DALException {
 		OperatorDTO opr = new OperatorDTO(oprName, ini, cpr);
 		data.createOperator(opr);
 	}
 
-	public void deleteOperator(OperatorDTO opr) throws DALException {
-		data.deleteOperator(opr);
+	public void deleteOperator(int oprId) throws DALException {
+		data.deleteOperator(data.getOperator(oprId));
 	}
 
 	public void updateOperator(String oprName, String ini, String cpr, int oprId) throws DALException {
@@ -36,9 +40,8 @@ public class Function implements IFunction {
 		}
 	}
 
-	public void login() {
-		// TODO Auto-generated method stub
-
+	public boolean login(int oprId, String psw) throws DALException {
+		return psw.equals(data.getOperator(oprId).getPassword());
 	}
 
 }
