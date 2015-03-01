@@ -9,6 +9,12 @@ public class Function implements IFunction {
 	public Function() {
 		data = new OperatorDAO();
 	}
+	
+	public void init() throws DALException {
+		data.createOperator(new OperatorDTO("Michael Jensen", "MJ", "200384-9311", data.getOperatorList().size()));
+		data.createOperator(new OperatorDTO("Nina Jensen", "NJ", "130282-9312", data.getOperatorList().size()));
+		data.createOperator(new OperatorDTO("Jan Past", "JP", "200381-9311", data.getOperatorList().size()));
+	}
 
 	public String createOperator(String oprName, String ini, String cpr) throws DALException {
 		OperatorDTO opr = new OperatorDTO(oprName, ini, cpr, data.getOperatorList().size());
