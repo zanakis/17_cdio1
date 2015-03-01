@@ -149,6 +149,12 @@ public class TUI implements ITUI {
 
 	public void changePass() throws DALException{
 		String temp0, temp1, psw;
+		System.out.println("Password must be at least 6 characters and must fit at least 3 of the following criteria:\n"
+				+ "At least one lower case letter, "
+				+ "at least one upper case letter,"
+				+ "\nat least one number,\n"
+				+ "at least one of the following symbols:\n"
+				+ "'.', '-', '_', '+'. '=', '!', '?'");
 		System.out.println("Enter old password");
 		psw = in.next();
 		if(f.login(oprId, psw)) {

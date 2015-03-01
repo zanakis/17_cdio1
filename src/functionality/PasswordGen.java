@@ -1,6 +1,7 @@
 package functionality;
 
 public class PasswordGen implements IPasswordGen{
+	private static final int MINIMUM_SIZE = 6;
 	String psw;
 	char[] symbols = {'.', '-', '_', '+', '!', '?', '=' };
 
@@ -78,13 +79,14 @@ public class PasswordGen implements IPasswordGen{
 				break;
 			}
 		}
-		if(symbolsCheck())
+		if(symbolsCheck(psw))
 			x++;
 		return x > 2;
 
 	}
 
 	public boolean checkCriteria(String psw) {
+		if(psw.length() < 6) return false;
 		int x = 0;
 		for(int i = 0; i < psw.length(); i++) {
 			if(Character.isLowerCase(psw.charAt(i))) {
@@ -110,13 +112,13 @@ public class PasswordGen implements IPasswordGen{
 				break;
 			}
 		}
-		if(symbolsCheck())
+		if(symbolsCheck(psw))
 			x++;
 		return x > 2;
 
 	}
 
-	public boolean symbolsCheck() {
+	public boolean symbolsCheck(String psw) {
 		for(int i = 0; i < symbols.length; i++) {
 			for(int j = 0; j < psw.length(); j++) {
 				if(psw.charAt(j) == symbols[i])
