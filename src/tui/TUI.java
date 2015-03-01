@@ -94,7 +94,7 @@ public class TUI implements ITUI {
 		String cpr = in.next();
 		try {
 			System.out.println(f.createOperator(oprName, ini, cpr));
-			
+
 		} catch(DALException e) {
 			System.out.println(e.getMessage());
 		}
@@ -170,12 +170,19 @@ public class TUI implements ITUI {
 	}
 
 	public void testWeight() {
-		System.out.println("Enter tare weight");
-		int tara = Integer.parseInt(in.next());
-		System.out.println("Enter brutto weight");
-		int brutto = Integer.parseInt(in.next());
+		int tare = 0;
+		int brutto = 0;
 		try {
-			System.out.println("Net weight is " + f.calculateWeight(tara, brutto));
+			System.out.println("Enter tare weight");
+			tare = Integer.parseInt(in.next());
+			System.out.println("Enter brutto weight");
+			brutto = Integer.parseInt(in.next());
+		} catch(Exception e) {
+			System.out.println("Invalid input.");
+			testWeight();
+		}
+		try {
+			System.out.println("Net weight is " + f.calculateWeight(tare, brutto));
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}

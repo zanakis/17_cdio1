@@ -1,5 +1,7 @@
 package functionality;
 
+import java.util.ArrayList;
+
 import data.*;
 import data.IOperatorDAO.DALException;
 
@@ -49,6 +51,10 @@ public class Function implements IFunction {
 						data.getOperator(i).getOprId() + "\t" + data.getOperator(i).getCpr() +
 						"\t" + data.getOperator(i).getPassword());
 		}
+	}
+	
+	public ArrayList<OperatorDTO> getOprArrayList() throws DALException {
+		return data.getOperatorList();
 	}
 
 	public boolean login(int oprId, String psw) throws DALException {

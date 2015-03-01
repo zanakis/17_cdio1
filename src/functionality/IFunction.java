@@ -1,5 +1,7 @@
 package functionality;
 
+import java.util.ArrayList;
+
 import data.OperatorDTO;
 import data.IOperatorDAO.DALException;
 
@@ -11,5 +13,6 @@ public interface IFunction {
 	void getOprList() throws DALException;
 	String makeNewPassword(int oprId, String psw1, String psw2) throws DALException;
 	boolean login(int oprId, String psw) throws DALException;
+	ArrayList<OperatorDTO> getOprArrayList() throws DALException;
 	int calculateWeight(int tara, int brutto)throws DALException;
 }

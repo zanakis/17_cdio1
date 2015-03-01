@@ -2,6 +2,8 @@ package data;
 
 import java.util.*;
 
+import data.IOperatorDAO.DALException;
+
 public class OperatorDAO implements IOperatorDAO {
 	ArrayList<OperatorDTO> operators;
 
@@ -18,10 +20,8 @@ public class OperatorDAO implements IOperatorDAO {
 			if(oprId < 10)
 				throw new DALException("Operator " + oprId + " does not exist.");
 			return operators.get(oprId);
-		} catch(NullPointerException e) {
-			throw new DALException("Operator " + oprId + " does not exist.");
 		} catch(Exception e) {
-			throw new DALException("invalid input");
+			throw new DALException("Operator " + oprId + " does not exist.");
 		}
 	}
 
@@ -31,7 +31,7 @@ public class OperatorDAO implements IOperatorDAO {
 
 	public void createOperator(OperatorDTO opr) throws DALException {
 		if(opr.getOprId() < 99)
-			operators.add(opr.getOprId(), opr);
+			operators.add(opr);
 		else throw new DALException("Too many operators");
 	}
 

@@ -10,74 +10,54 @@ import functionality.*;
 import tui.*;
 
 public class Test {
-	IOperatorDAO d;
 	IFunction f;
-	ITUI t;
 
 	@Before
-	public void setup() {
-		d = new OperatorDAO();
+	public void setup() throws DALException {
 		f = new Function();
-		t = new TUI();
+		f.init();
 	}
-
+	
 	@org.junit.Test
 	public void testChangeWrongPassword() {
+		String psw = "";
 		try {
-			d.createOperator(new OperatorDTO("MJ", "MJ", "1000", 11));
-		} catch(DALException e) {
+			psw = f.getOprArrayList().get(11).getPassword();
+			System.out.println(f.makeNewPassword(11, "meyo", "meyo"));
+			assertEquals(psw, f.getOprArrayList().get(11).getPassword());
+		} catch (DALException e) {
 			System.out.println(e.getMessage());
 		}
-		IPasswordGen passGen = new PasswordGen();
-		if(passGen.checkCriteria("meyo")) {
-			if("meyo".equals("meyo")) {
-				try {
-					d.getOperator(11).setPassword("meyo");
-				} catch (DALException e) {
-					System.out.println("???");
-				}
-				System.out.println("Password changed");
-			} else System.out.println("Passwords didn't match");
-		} else System.out.println("New password does not match the criteria");
 	}
 
 	@org.junit.Test
 	public void testChangeRightPassword() {
 		try {
-			d.createOperator(new OperatorDTO("MJ", "MJ", "1000", 11));
-		} catch(DALException e) {
+			System.out.println(f.makeNewPassword(11, "!wreU4", "!wreU4"));
+			assertEquals("!wreU4", f.getOprArrayList().get(11).getPassword());
+		} catch (DALException e) {
 			System.out.println(e.getMessage());
 		}
-		IPasswordGen passGen = new PasswordGen();
-		if(passGen.checkCriteria("!wreU4")) {
-			if("!wreU4".equals("!wreU4")) {
-				try {
-					d.getOperator(11).setPassword("!wreU4");
-				} catch (DALException e) {
-					System.out.println("???");
-				}
-				System.out.println("Password changed");
-			}
-		} else System.out.println("New password does not match the criteria");
 	}
 	
 	@org.junit.Test
 	public void testChangeNoMatchtPassword() {
+		String psw = "";
 		try {
-			d.createOperator(new OperatorDTO("MJ", "MJ", "1000", 11));
-		} catch(DALException e) {
+			psw = f.getOprArrayList().get(11).getPassword();
+			System.out.println(f.makeNewPassword(11, "!wreU4", "!3Erfd"));
+			assertEquals(psw, f.getOprArrayList().get(11).getPassword());
+		} catch (DALException e) {
 			System.out.println(e.getMessage());
 		}
-		IPasswordGen passGen = new PasswordGen();
-		if(passGen.checkCriteria("!wreU4")) {
-			if("!wreU4".equals("!3Erfd")) {
-				try {
-					d.getOperator(11).setPassword("!wreU4");
-				} catch (DALException e) {
-					System.out.println("???");
-				}
-				System.out.println("Password changed");
-			} else System.out.println("passwords didn't match");
-		} else System.out.println("New password does not match the criteria");
+	}
+	
+	@org.junit.Test
+	public void testUpdateOutOfBounds() {
+		try {
+			f.updateOperator("Test", "T", "ttt-ttt", 17);
+		} catch (DALException e) {
+			
+		}
 	}
 }
