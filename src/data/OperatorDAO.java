@@ -5,7 +5,7 @@ import java.util.*;
 public class OperatorDAO implements IOperatorDAO {
 	ArrayList<OperatorDTO> operators;
 
-	//laver operatører 0-9 null
+	//laver operatï¿½rer 0-9 null
 	public OperatorDAO() {
 		operators = new ArrayList<OperatorDTO>();
 		for(int i = 0; i < 10; i++)
@@ -15,11 +15,13 @@ public class OperatorDAO implements IOperatorDAO {
 
 	public OperatorDTO getOperator(int oprId) throws DALException {
 		try {
-			return operators.get(oprId);
-		} catch(Exception e) {
-			if(oprId > 9)
+			if(oprId < 10)
 				throw new DALException("Operator " + oprId + " does not exist.");
-			else throw new DALException("invalid input");
+			return operators.get(oprId);
+		} catch(NullPointerException e) {
+			throw new DALException("Operator " + oprId + " does not exist.");
+		} catch(Exception e) {
+			throw new DALException("invalid input");
 		}
 	}
 

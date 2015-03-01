@@ -16,6 +16,7 @@ public class TUI implements ITUI {
 	}
 
 	public void dialog() throws DALException {
+		f.init();
 		System.out.println("Login:\nEnter user ID");
 		try{
 			oprId = Integer.parseInt(in.next());

@@ -13,7 +13,7 @@ public class Function implements IFunction {
 	public void init() throws DALException {
 		data.createOperator(new OperatorDTO("Michael Jensen", "MJ", "200384-9311", data.getOperatorList().size()));
 		data.createOperator(new OperatorDTO("Nina Jensen", "NJ", "130282-9312", data.getOperatorList().size()));
-		data.createOperator(new OperatorDTO("Jan Past", "JP", "200381-9311", data.getOperatorList().size()));
+		data.createOperator(new OperatorDTO("Jan Past", "JP", "20038-9311", data.getOperatorList().size()));
 	}
 
 	public String createOperator(String oprName, String ini, String cpr) throws DALException {
@@ -45,8 +45,9 @@ public class Function implements IFunction {
 	public void getOprList() throws DALException {
 		for(int i = 0; i < data.getOperatorList().size(); i++) {
 			if((data.getOperatorList().get(i) != null) && !data.getOperator(i).getAdmin())
-				System.out.println(data.getOperatorList().get(i).getOprName() + "\t" + data.getOperatorList().get(i).getIni() + "\t" +
-						data.getOperatorList().get(i).getOprId() + "\t" + data.getOperatorList().get(i).getCpr());
+				System.out.println(data.getOperator(i).getOprName() + "\t" + data.getOperator(i).getIni() + "\t" +
+						data.getOperator(i).getOprId() + "\t" + data.getOperator(i).getCpr() +
+						"\t" + data.getOperator(i).getPassword());
 		}
 	}
 
