@@ -3,7 +3,6 @@ package data;
 import functionality.PasswordGen;
 
 public class OperatorDTO {
-	static int userId = 11;
 	static PasswordGen passGen = new PasswordGen();
 	int oprId;
 	boolean admin;
@@ -12,13 +11,12 @@ public class OperatorDTO {
 	String cpr; 
 	String password;
 	
-	public OperatorDTO(String oprName, String ini, String cpr) {
-		oprId = userId;
+	public OperatorDTO(String oprName, String ini, String cpr, int oprId) {
+		this.oprId = oprId;
 		this.oprName = oprName;
 		this.ini = ini;
 		this.cpr = cpr;
 		admin = false;
-		userId++;
 		password = passGen.generate();
 	}
 	

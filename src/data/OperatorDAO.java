@@ -8,7 +8,7 @@ public class OperatorDAO implements IOperatorDAO {
 	//laver operatører 0-9 null
 	public OperatorDAO() {
 		operators = new ArrayList<OperatorDTO>();
-		for(int i = 0; i < 9; i++)
+		for(int i = 0; i < 10; i++)
 			operators.add(null);
 		operators.add(new OperatorDTO(true));
 	}
@@ -17,7 +17,9 @@ public class OperatorDAO implements IOperatorDAO {
 		try {
 			return operators.get(oprId);
 		} catch(Exception e) {
-			throw new DALException("Operator " + oprId + " does not exist.");
+			if(oprId > 9)
+				throw new DALException("Operator " + oprId + " does not exist.");
+			else throw new DALException("invalid input");
 		}
 	}
 
@@ -27,7 +29,7 @@ public class OperatorDAO implements IOperatorDAO {
 
 	public void createOperator(OperatorDTO opr) throws DALException {
 		if(opr.getOprId() < 99)
-			operators.add(opr);
+			operators.add(opr.getOprId(), opr);
 		else throw new DALException("Too many operators");
 	}
 

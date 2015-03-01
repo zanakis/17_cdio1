@@ -10,9 +10,11 @@ public class Function implements IFunction {
 		data = new OperatorDAO();
 	}
 
-	public void createOperator(String oprName, String ini, String cpr) throws DALException {
-		OperatorDTO opr = new OperatorDTO(oprName, ini, cpr);
+	public String createOperator(String oprName, String ini, String cpr) throws DALException {
+		OperatorDTO opr = new OperatorDTO(oprName, ini, cpr, data.getOperatorList().size());
 		data.createOperator(opr);
+		return "Operator " + (data.getOperatorList().size()-1) + "\tPassword: "
+		+ data.getOperator(data.getOperatorList().size()-1).getPassword();
 	}
 
 	public void deleteOperator(int oprId) throws DALException {
@@ -20,8 +22,7 @@ public class Function implements IFunction {
 	}
 
 	public void updateOperator(String oprName, String ini, String cpr, int oprId) throws DALException {
-		data.updateOperator(new OperatorDTO(oprName, ini, cpr));
-
+		data.updateOperator(new OperatorDTO(oprName, ini, cpr, oprId));
 	}
 
 	public String makeNewPassword(int oprId, String psw1, String psw2) throws DALException {
@@ -31,7 +32,7 @@ public class Function implements IFunction {
 				data.getOperator(oprId).setPassword(psw1);
 				return "Password changed";
 			}
-		}
+		} else return "New password does not match the criteria";
 		return "Passwords didn't match";
 	}
 
@@ -44,7 +45,10 @@ public class Function implements IFunction {
 	}
 
 	public boolean login(int oprId, String psw) throws DALException {
-		return psw.equals(data.getOperator(oprId).getPassword()) && (oprId > 10);
+		return psw.equals(data.getOperator(oprId).getPassword()) && (oprId > 9);
 	}
-
+	
+	public int calculateWeight(int tara, int brutto) throws DALException {
+		return brutto - tara;
+	}
 }
